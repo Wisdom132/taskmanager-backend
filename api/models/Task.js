@@ -8,11 +8,19 @@ const taskschema = mongoose.Schema({
     type: String,
     require: true
   },
-  status: {
+  role: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Status",
+    ref: "Role"
+  },
+  status: {
+    type: String,
     default: "Active"
   },
+  // status: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Status",
+  //   default: "Active"
+  // },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"

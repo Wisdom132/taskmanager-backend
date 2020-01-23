@@ -17,7 +17,7 @@ exports.createNewTask = async (req, res) => {
     });
     let role = req.body.role;
     let user = await User.find({ role: role });
-    let random = Math.floor(Math.random() * user.length) + 1;
+    let random = Math.floor(Math.random() * user.length);
     let assignedUser = user[random]._id;
     task.user = assignedUser;
     res.json({ task });

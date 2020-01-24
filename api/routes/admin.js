@@ -25,5 +25,7 @@ router.delete("/remove-status/:statusId", statusController.deleteStatus);
 //task routes
 router.post("/create-task", taskController.createNewTask);
 router.get("/list-tasks", taskController.listAllTask);
+router.delete("/delete-task/:taskId", taskController.deleteTask);
+router.put("/update-task/:taskId", taskController.updateTask);
 
 module.exports = router;

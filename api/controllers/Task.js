@@ -20,9 +20,32 @@ exports.createNewTask = async (req, res) => {
     let random = Math.floor(Math.random() * user.length);
     let assignedUser = user[random]._id;
     task.user = assignedUser;
-    res.json({ task });
+    let assignedTask = await task.save()
+    res.status(200).json({ assignedTask });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err });
   }
 };
+
+exports.deleteTask = async (req,res) => {
+  let id = req.params.taskId;
+  try {
+    let request = await Task.remove({_id:id});
+     res.status(200).json({  message:'Task Deleted',request });
+  }catch(err) {
+     console.log(err);
+    res.status(500).json({error: err });
+  }
+}
+
+exports.updateTask = async (req,res) => {
+  let id = req.params.taskId
+  try {
+    let updateStatus = await Task.findByIdAndUpdate(id,req.body)
+    let update = await updateStatus.save();
+    res.status(200).json(update)
+  }catch(err) {
+    console.log(err);
+  }
+}

@@ -30,14 +30,12 @@ exports.getAllAdmins = async (req, res) => {
     res.status(500).json({ error: err });
   }
 };
-exports.adminLogin = (req, res) => {
-  Admin.findOne({ email: req.body.email })
-    .exec()
-    .then(admin => {
-      if (!admin) {
+exports.adminLogin = async (req, res) => {
+  let admin = await Admin.findOne({ email: req.body.email })
+    if (!admin) {
         res.status(401).json({ error: "Account not found" });
       }
-      bcrypt.compare(req.body.password, admin.password, (err, result) => {
+      await bcrypt.compare(req.body.password, admin.password, (err, result)=> {
         if (err) {
           return res.status(401).json({
             error: "Authentification error"
@@ -55,12 +53,14 @@ exports.adminLogin = (req, res) => {
           );
 
           return res.status(200).json({
+            role:"admin",
             message: "Authentification Successful",
-            token: token
+            token: token,
+            user:admin
           });
         }
-      });
-    });
+
+      })
 };
 exports.registerNewUser = async (req, res) => {
   try {

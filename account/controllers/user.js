@@ -4,20 +4,18 @@ const Task = require("../../api/models/Task");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-exports.userLogin = (req, res) => {
-  User.findOne({ email: req.body.email })
-    .exec()
-    .then(user => {
-      if (user.length < 1) {
-        return res.status(401).json({ error: "User not found" });
-      }
-      bcrypt.compare(req.body.password, user.password, (err, result) => {
-        if (err) {
+exports.userLogin = async (req, res) => {
+  let user = await User.findOne({ email: req.body.email })
+  if(user.length < 1) {
+    return res.status(401).json({ error: "User not found" });
+  }
+ await bcrypt.compare(req.body.password, user.password, (err, result)=> {
+    if (err) {
           return res.status(401).json({
             error: "Authentification error"
           });
         }
-        if (result) {
+         if (result) {
           const token = jwt.sign(
             {
               email: user.email,
@@ -27,15 +25,14 @@ exports.userLogin = (req, res) => {
             "secret",
             { expiresIn: "240h" }
           );
-          //   return res.redirect("/admin/dashboard");
-
           return res.status(200).json({
+             role:"user",
             message: "Authentification Successful",
-            token: token
+            token: token,
+            user:user
           });
         }
-      });
-    });
+  }) 
 };
 
 exports.getUserAssignedTask = async (req,res) => {

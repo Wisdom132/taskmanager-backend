@@ -11,6 +11,7 @@ router.get("/list-admins", admincontroller.getAllAdmins);
 router.post("/register-user", admincontroller.registerNewUser);
 router.get("/list-users", admincontroller.listAllUsers);
 router.get("/user/:userId", admincontroller.getUserById);
+router.delete("/remove-user/:userId",admincontroller.removeUser)
 
 //roles routes
 router.post("/create-role", roleController.createNewRole);

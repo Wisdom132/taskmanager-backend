@@ -18,7 +18,7 @@ app.use(cors());
 //setup db
 mongoose.set("useCreateIndex", true);
 mongoose
-  .connect(config.database, { useNewUrlParser: true })
+  .connect(config.statging_db, { useNewUrlParser: true })
   .then(() => {
     console.log("Database is connected");
   })

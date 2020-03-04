@@ -3,7 +3,7 @@ const User = require("../../account/model/User");
 
 exports.listAllTask = async (req, res) => {
   try {
-    let task = await Task.find().populate("user");
+    let task = await Task.find().populate("user role");
     res.status(200).json(task);
   } catch (err) {}
 };
@@ -17,6 +17,9 @@ exports.createNewTask = async (req, res) => {
     });
     let role = req.body.role;
     let user = await User.find({ role: role });
+    if(user === []) {
+       res.status(200).json({message:"Please Create a User With this role" });
+    }
     let random = Math.floor(Math.random() * user.length);
     let assignedUser = user[random]._id;
     task.user = assignedUser;

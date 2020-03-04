@@ -38,7 +38,7 @@ exports.userLogin = async (req, res) => {
 exports.getUserAssignedTask = async (req,res) => {
   try {
     let id = req.params.UserId
-    let task = await Task.find({user:id})
+    let task = await Task.find({user:id}).populate("user role");
   if(task.length === 0) {
     res.status(200).json({
           message:"No Task Assigned Yet"

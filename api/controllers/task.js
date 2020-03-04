@@ -17,14 +17,16 @@ exports.createNewTask = async (req, res) => {
     });
     let role = req.body.role;
     let user = await User.find({ role: role });
-    if(user === []) {
-       res.status(200).json({message:"Please Create a User With this role" });
-    }
+    console.log(user)
+    if(user.length == 0) {
+       res.status(500).json({message:"Please Create a User With this role" });
+    }else {  
     let random = Math.floor(Math.random() * user.length);
     let assignedUser = user[random]._id;
     task.user = assignedUser;
     let assignedTask = await task.save()
     res.status(200).json({ assignedTask });
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err });

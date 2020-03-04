@@ -3,7 +3,7 @@ const User = require("../../account/model/User");
 
 exports.listAllTask = async (req, res) => {
   try {
-    let task = await Task.find();
+    let task = await Task.find().populate("user");
     res.status(200).json(task);
   } catch (err) {}
 };

@@ -110,7 +110,6 @@ exports.removeUser = async (req,res) => {
     res.status(404).json({ error: err, message: "Soemthing Went Wrong" });
   }
 }
-
 exports.updateUserInfo = async (req,res)=> {
   try {
       const id = req.params.userId;

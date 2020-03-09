@@ -16,7 +16,7 @@ const taskschema = mongoose.Schema({
     type: String,
     default: "Active"
   },
-  prioriy:{
+  priority:{
      type: mongoose.Schema.Types.ObjectId,
     ref: "Priority"
   },

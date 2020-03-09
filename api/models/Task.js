@@ -16,11 +16,10 @@ const taskschema = mongoose.Schema({
     type: String,
     default: "Active"
   },
-  // status: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "Status",
-  //   default: "Active"
-  // },
+  prioriy:{
+     type: mongoose.Schema.Types.ObjectId,
+    ref: "Priority"
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"

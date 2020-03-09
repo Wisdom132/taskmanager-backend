@@ -4,6 +4,7 @@ const admincontroller = require("../../account/controllers/admin");
 const roleController = require("../controllers/role");
 const statusController = require("../controllers/status");
 const taskController = require("../controllers/task");
+const priorityController = require("../controllers/priority")
 
 router.post("/register", admincontroller.registerNewAdmin);
 router.post("/login", admincontroller.adminLogin);
@@ -28,5 +29,11 @@ router.post("/create-task", taskController.createNewTask);
 router.get("/list-tasks", taskController.listAllTask);
 router.delete("/delete-task/:taskId", taskController.deleteTask);
 router.put("/update-task/:taskId", taskController.updateTask);
+
+//priority routes
+router.get("/list-priority",priorityController.getAllPriority)
+router.post("/create-priority",priorityController.createNewPriority)
+router.delete("/remove-priority/:priorityId",priorityController.deletePriority)
+
 
 module.exports = router;

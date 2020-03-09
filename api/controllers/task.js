@@ -1,5 +1,6 @@
 const Task = require("../models/Task");
 const User = require("../../account/model/User");
+// import monent from 'moment'
 
 exports.listAllTask = async (req, res) => {
   try {
@@ -13,7 +14,8 @@ exports.createNewTask = async (req, res) => {
     let task = new Task({
       title: req.body.title,
       description: req.body.description,
-      role: req.body.role
+      role: req.body.role,
+      priority:req.body.priority
     });
     let role = req.body.role;
     let user = await User.find({ role: role });

@@ -8,6 +8,12 @@ const taskschema = mongoose.Schema({
     type: String,
     require: true
   },
+  startDate: {
+    type:Date
+  },
+   completeDate: {
+    type:Date
+  },
   role: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Role"

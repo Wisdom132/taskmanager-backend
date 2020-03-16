@@ -15,7 +15,9 @@ exports.createNewTask = async (req, res) => {
       title: req.body.title,
       description: req.body.description,
       role: req.body.role,
-      priority:req.body.priority
+      priority:req.body.priority,
+      startDate:null,
+      completeDate:null
     });
     let role = req.body.role;
     let user = await User.find({ role: role });
@@ -50,9 +52,7 @@ exports.deleteTask = async (req,res) => {
 exports.updateTask = async (req,res) => {
   let id = req.params.taskId
   try {
-   
     let updateStatus = await Task.findByIdAndUpdate(id,req.body.data)
-  
     let update = await updateStatus.save();
     res.status(200).json(update)
   }catch(err) {

@@ -56,7 +56,11 @@ res.status(200).json({
 exports.updateTaskStatus = async (req,res) => {
   let id = req.params.taskId
   try {
-    let updateStatus = await Task.findByIdAndUpdate(id,{ $set: { status: req.body.status }})
+    console.log(req.body.status)
+    
+    let updateStatus = await Task.findByIdAndUpdate(id,{ $set: { status: req.body.status.status
+      ,startDate:req.body.status.startDate
+      ,completeDate:req.body.status.completeDate }})
     let update = await updateStatus.save();
     res.status(200).json(update)
   }catch(err) {

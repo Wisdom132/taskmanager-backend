@@ -113,7 +113,6 @@ exports.removeUser = async (req,res) => {
 exports.updateUserInfo = async (req,res)=> {
   try {
       const id = req.params.userId;
-      
     let result = await User.findByIdAndUpdate(id,req.body.data);
      res.status(200).json({data:result})
   }catch(err) {

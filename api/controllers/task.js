@@ -31,7 +31,7 @@ exports.createNewTask = async (req, res) => {
 
     
   } catch (err) {
-    console.log(err);
+   
     res.status(500).json({ error: err });
   }
 };
@@ -42,7 +42,7 @@ exports.deleteTask = async (req,res) => {
     let request = await Task.remove({_id:id});
      res.status(200).json({  message:'Task Deleted',request });
   }catch(err) {
-     console.log(err);
+    
     res.status(500).json({error: err });
   }
 }
@@ -51,10 +51,10 @@ exports.updateTask = async (req,res) => {
   let id = req.params.taskId
   try {
     let updateStatus = await Task.findByIdAndUpdate(id,req.body)
-    console.log(req.body)
+  
     let update = await updateStatus.save();
     res.status(200).json(update)
   }catch(err) {
-    console.log(err);
+    res.status(500).json({ error: err });
   }
 }

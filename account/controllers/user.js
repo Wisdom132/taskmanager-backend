@@ -49,7 +49,7 @@ res.status(200).json({
           });
   }
   }catch(err) {
-    console.log(err)
+    res.status(500).json({ error: err });
   }
 }
 
@@ -60,6 +60,6 @@ exports.updateTaskStatus = async (req,res) => {
     let update = await updateStatus.save();
     res.status(200).json(update)
   }catch(err) {
-    console.log(err);
+     res.status(500).json({ error: err });
   }
 }

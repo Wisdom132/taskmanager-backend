@@ -16,6 +16,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  NumTasksAssigned: {
+    type: Number,
+  },
   createdDate: {
     type: Date,
     default: Date.now()

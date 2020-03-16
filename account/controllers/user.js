@@ -57,7 +57,6 @@ exports.updateTaskStatus = async (req,res) => {
   let id = req.params.taskId
   try {
     console.log(req.body.status)
-    
     let updateStatus = await Task.findByIdAndUpdate(id,{ $set: { status: req.body.status.status
       ,startDate:req.body.status.startDate
       ,completeDate:req.body.status.completeDate }})

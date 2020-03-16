@@ -1,5 +1,6 @@
 const Task = require("../models/Task");
 const User = require("../../account/model/User");
+const mongoose = require("mongoose")
 // import monent from 'moment'
 
 exports.listAllTask = async (req, res) => {
@@ -19,22 +20,55 @@ exports.createNewTask = async (req, res) => {
       startDate:null,
       completeDate:null
     });
-    let role = req.body.role;
-    let user = await User.find({ role: role });
-    if(user.length == 0) {
-       res.status(500).json({message:"Please Create a User With this role" });
+    //get users and thier task
+    var numTasks = 1;
+     let roleid = req.body.role;
+    let userTask = await User.aggregate([
+     { $match : { "role" : mongoose.Types.ObjectId(roleid) } },
+      {$lookup:{
+
+      from: 'tasks',
+        localField: '_id',
+        foreignField: 'user',
+        as: 'tasks'
+      }},
+     
+      {
+         $addFields: {
+            tasks: { $size: "$tasks" }
+        }
+    },
+    {
+        $sort: { tasks: 1 }
+    },
+    {
+        $limit: numTasks
     }
-  
-    let random = Math.floor(Math.random() * user.length);
-    let assignedUser = user[random]._id;
-    task.user = assignedUser;
-    let assignedTask = await task.save()
+    ])
+  let assignedUser = userTask[0]._id;
+  task.user = assignedUser;
+  let assignedTask = await task.save()
     res.status(200).json({ assignedTask });
+  
+
+  // old code for random user assinging====> this isnt efficient
+
+  //   let role = req.body.role;
+  //   let user = await User.find({ role: role });
+    
+  //   if(user.length == 0) {
+  //      res.status(500).json({message:"Please Create a User With this role" });
+  //   }
+    // let random = Math.floor(Math.random() * user.length);
+    // let assignedUser = user[random]._id;
+    // task.user = assignedUser;
+    // let assignedTask = await task.save()
+    // res.status(200).json({ assignedTask });
 
     
   } catch (err) {
-   
     res.status(500).json({ error: err });
+    
   }
 };
 

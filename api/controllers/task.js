@@ -50,7 +50,8 @@ exports.deleteTask = async (req,res) => {
 exports.updateTask = async (req,res) => {
   let id = req.params.taskId
   try {
-    let updateStatus = await Task.findByIdAndUpdate(id,req.body)
+   
+    let updateStatus = await Task.findByIdAndUpdate(id,req.body.data)
   
     let update = await updateStatus.save();
     res.status(200).json(update)
